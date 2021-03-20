@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Card, Form, Button, Alert, Container } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import API from "../../utils/API";
 
 function Signup() {
 
@@ -24,7 +25,11 @@ function Signup() {
         try {
             setError("")
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value)
+            API.saveUser({
+                name: usernameRef.current.value,
+                email: emailRef.current.value
+            })
             history.push("/")
         } catch {
             setError("Failed to create an Account")
@@ -41,9 +46,9 @@ function Signup() {
                             <h2 className="text-center mb-4">Sign Up</h2>
                             {error && <Alert variant="danger">{error}</Alert>}
                             <Form onSubmit={handleSubmit}>
-                            <Form.Group id="username">
-                                    <Form.Label>User Name</Form.Label>
-                                    <Form.Control type="username" ref={usernameRef} required />
+                            <Form.Group id="displayName">
+                                    <Form.Label>UserName</Form.Label>
+                                    <Form.Control type="displayName" ref={usernameRef} required />
                                 </Form.Group>
                                 <Form.Group id="email">
                                     <Form.Label>Email</Form.Label>

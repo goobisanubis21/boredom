@@ -1,10 +1,10 @@
 const express = require("express");
 const path = require("path");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-// const apiRoutes = require("./routes");
+const apiRoutes = require("./routes");
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -15,13 +15,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Connect to the Mongo DB
-// mongoose.connect(
-//   process.env.MONGODB_URI || "mongodb://localhost/",
-//   { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
-// );
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/boredomuser",
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
+);
 
 // Use apiRoutes
-// app.use(apiRoutes);
+app.use(apiRoutes);
 
 
 // Send every request to the React app
