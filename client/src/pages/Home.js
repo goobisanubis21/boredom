@@ -28,9 +28,7 @@ function Home() {
 
     function findCurrentUser() {
         API.getUser().then(res => {
-            console.log(res.data)
             let theUser = currentUser.email
-            console.log(theUser)
             let user = [];
             for (let i = 0; i < res.data.length - res.data.length + 1; i++) {
                 user.push(res.data.find(savedUser => savedUser.email === theUser))
@@ -39,9 +37,7 @@ function Home() {
 
         })
     }
-
-    console.log(stateUser)
-
+    
     return (
         <div>
             {stateUser.map(user => (

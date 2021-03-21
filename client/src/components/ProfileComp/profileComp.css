@@ -1,0 +1,19 @@
+.userDiv {
+    text-align: center;
+}
+
+.usernameProfile {
+    margin-top: 50px;
+    font-size: 70px;
+    font-weight: 500;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.userProfilePic {
+    border-radius: 50%;
+}
+
+.bioDiv {
+    width: 80%;
+    margin: 50px auto;
+}
