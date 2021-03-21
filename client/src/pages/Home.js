@@ -42,7 +42,7 @@ function Home() {
         <div>
             {stateUser.map(user => (
                 <div key={user.email}>
-                    <p><span>{user.name}</span> is logged in</p>
+                    <p><span>{user.username}</span> is logged in</p>
                 </div>
             ))}
             <div>

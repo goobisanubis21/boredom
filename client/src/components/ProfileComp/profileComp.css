@@ -17,3 +17,21 @@
     width: 80%;
     margin: 50px auto;
 }
+
+.followDiv {
+    display: flex;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.follower {
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.following {
+    cursor: pointer;
+    margin: 0 auto;
+}

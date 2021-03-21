@@ -2,9 +2,36 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const boredomuserSchema = new Schema({
-    name: {type: String},
+    username: { type: String },
+    first_name: { type: String },
+    last_name: { type: String },
     email: { type: String },
-    firebase_id: { type: String },
+    image: { type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwgEJf3figiiLmSgtwKnEgEkRw1qUf2ke1Bg&usqp=CAU" },
+    followers: {
+        users: {
+            id: {
+                type: String,
+                default: "1"
+            },
+            username: {
+                type: String,
+                default: "Anthony"
+            }
+        }
+    },
+    following: {
+        users: {
+            id: {
+                type: String,
+                default: "1"
+            },
+            username: {
+                type: String,
+                default: "Anthony"
+            }
+        }
+    },
+    bio: { type: String, default: "No Bio" },
     date: { type: Date, default: Date.now }
 });
 

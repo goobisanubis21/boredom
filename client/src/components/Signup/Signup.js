@@ -10,6 +10,8 @@ function Signup() {
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const usernameRef = useRef()
+    const firstNameRef = useRef()
+    const lastNameRef = useRef()
     const { signup } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -27,8 +29,11 @@ function Signup() {
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value)
             API.saveUser({
-                name: usernameRef.current.value,
+                username: usernameRef.current.value,
+                first_name: firstNameRef.current.value,
+                last_name: lastNameRef.current.value,
                 email: emailRef.current.value
+
             })
             history.push("/")
         } catch {
@@ -48,7 +53,15 @@ function Signup() {
                             <Form onSubmit={handleSubmit}>
                             <Form.Group id="displayName">
                                     <Form.Label>UserName</Form.Label>
-                                    <Form.Control type="displayName" ref={usernameRef} required />
+                                    <Form.Control type="text" ref={usernameRef} required />
+                                </Form.Group>
+                                <Form.Group id="firstName">
+                                    <Form.Label>First Name</Form.Label>
+                                    <Form.Control type="text" ref={firstNameRef} required />
+                                </Form.Group>
+                                <Form.Group id="lastName">
+                                    <Form.Label>Last Name</Form.Label>
+                                    <Form.Control type="text" ref={lastNameRef} required />
                                 </Form.Group>
                                 <Form.Group id="email">
                                     <Form.Label>Email</Form.Label>
