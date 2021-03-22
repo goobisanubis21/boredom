@@ -19,7 +19,7 @@ function ProfileComp() {
             let theUser = currentUser.email
             let user = [];
             let follower = [];
-            let following=[];
+            let following = [];
             for (let i = 0; i < res.data.length - res.data.length + 1; i++) {
                 user.push(res.data.find(savedUser => savedUser.email === theUser))
                 follower.push(res.data[i].followers)
@@ -32,7 +32,7 @@ function ProfileComp() {
     }
 
     function followerView() {
-
+        
     }
 
     function followingView() {
