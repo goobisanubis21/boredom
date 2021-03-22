@@ -13,9 +13,13 @@ const boredomuserSchema = new Schema({
                 type: String,
                 default: "1"
             },
-            username: {
+            first_name: {
                 type: String,
                 default: "Anthony"
+            },
+            last_name: {
+                type: String,
+                default: "Parrino"
             }
         }
     },
@@ -25,9 +29,13 @@ const boredomuserSchema = new Schema({
                 type: String,
                 default: "1"
             },
-            username: {
+            first_name: {
                 type: String,
                 default: "Anthony"
+            },
+            last_name: {
+                type: String,
+                default: "Parrino"
             }
         }
     },

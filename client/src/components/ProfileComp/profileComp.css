@@ -35,3 +35,35 @@
     cursor: pointer;
     margin: 0 auto;
 }
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: flex;
+}
+
+.followModal {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.followers {
+    display: flex;
+    align-items: center;
+}
+
+.followerViewBtn {
+    margin-left: 10px;
+}
+
+.following {
+    display: flex;
+    align-items: center;
+}
+
+.followingViewBtn {
+    margin-left: 10px;
+}
