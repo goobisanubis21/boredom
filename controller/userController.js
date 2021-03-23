@@ -14,5 +14,12 @@ module.exports = {
             .create(req.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err))
+    },
+
+    update: function (req, res) {
+        db.Boredomuser
+            .findOneAndUpdate(req.body)
+            .then(dbModel => res.json(dbModel))
+            .catch(err => console.log(json(err)))
     }
 }

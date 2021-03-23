@@ -4,6 +4,7 @@ const userController = require("../../controller/userController");
 router.route("/")
     .post(userController.save)
     .get(userController.findAll)
+    .put(userController.update)
 // Matches with "/api/books/:id"
 // router
 //   .route("/:search")

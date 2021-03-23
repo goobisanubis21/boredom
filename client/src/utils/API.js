@@ -5,7 +5,12 @@ export default {
     saveUser: function (userData) {
         return axios.post("api/user", userData)
     },
+
     getUser: function () {
         return axios.get("api/user")
+    },
+
+    updateBio: function (bioInfo) {
+        return axios.put("api/user", bioInfo)
     }
 };

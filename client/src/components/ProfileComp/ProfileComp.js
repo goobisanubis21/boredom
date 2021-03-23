@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "./profileComp.css";
 import { useAuth } from "../../context/AuthContext";
 import API from "../../utils/API"
@@ -9,6 +9,7 @@ function ProfileComp() {
     const [stateUser, setStateUser] = useState([])
     const [followers, setFollowers] = useState([])
     const [following, setFollowing] = useState([])
+    const bioRef = useRef()
 
     useEffect(() => {
         findCurrentUser()
@@ -43,18 +44,30 @@ function ProfileComp() {
     }
 
     function unfollow() {
-        // function to delete user from followers in db
+        // function to delete the following user from the user who is deleteing's db and must also delete the user who is deleteing from the following user's db
     }
 
     function viewUser() {
         // function to view user profile when clicked on in follower/following list
     }
 
+    function editBio() {
+        let edit = document.getElementById("bioEditId")
+        edit.classList.toggle("hidden")
+    }
+
+    function saveBio() {
+        API.updateBio({
+            id: stateUser._id,
+            bio: bioRef.current.value
+        }).then(window.location.reload())
+    }
+
     return (
         <div>
 
-            <div id="followerMod" className=" hidden">
-                <div className="card followModal">
+            <div id="followerMod" className="hidden">
+                <div className="card followerModal">
                     <div className="card-body">
                         <p>Followers</p>
                         {followers.map(follower => (
@@ -68,14 +81,14 @@ function ProfileComp() {
             </div>
 
             <div id="followingMod" className="hidden">
-                <div className="card followModal">
+                <div className="card followingModal">
                     <div className="card-body">
-                    <p>Following</p>
+                        <p>Following</p>
                         {following.map(followings => (
                             <div className="following" key={followings.users.id}>
                                 <p>{followings.users.first_name} {followings.users.last_name}</p>
-                                <button onClick={viewUser} id={followings.users.id} className="followerViewBtn">View</button>
-                                <button onClick={unfollow} id={followings.users.id} className="followingViewBtn">Unfollow</button>
+                                <button onClick={viewUser} id={followings.users.id} className="followingViewBtn">View</button>
+                                <button onClick={unfollow} id={followings.users.id} className="unfollowingBtn">Unfollow</button>
                             </div>
                         ))}
                     </div>
@@ -98,7 +111,11 @@ function ProfileComp() {
                         <div className="card">
                             <div className="card-body">
                                 <p>{user.bio}</p>
-                                <button>Edit</button>
+                                <div id="bioEditId" className="bioEdit hidden">
+                                    <textarea ref={bioRef} className="bioTextEdit" placeholder="Bio"></textarea>
+                                    <button onClick={saveBio} className="bioSaveBtn">Save</button>
+                                </div>
+                                <button onClick={editBio}>Edit</button>
                             </div>
                         </div>
                     </div>

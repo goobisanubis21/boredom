@@ -37,16 +37,28 @@
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .show {
-    display: flex;
+    display: flex !important;
 }
 
-.followModal {
-    width: 50%;
-    margin: 0 auto;
+.followerModal {
+    position: absolute !important;
+    width: 40%;
+    background-color: rgb(240, 240, 240) !important;
+    margin: 20px;
+    left: 0;
+    text-align: center;
+}
+
+.followingModal {
+    position: absolute !important;
+    width: 40%;
+    background-color: rgb(211, 211, 211) !important;
+    margin: 20px;
+    right: 0;
     text-align: center;
 }
 
@@ -66,4 +78,47 @@
 
 .followingViewBtn {
     margin-left: 10px;
+}
+
+.unfollowingBtn {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .followers {
+        display: block;
+    }
+
+    .following {
+        display: block;
+    }
+
+    .followerViewBtn {
+        margin: 5px auto;
+        display: block;
+
+    }
+
+    .followingViewBtn {
+        margin: 5px auto;
+        display: block;
+    }
+
+    .unfollowingBtn {
+        margin: 5px auto;
+        display: block;
+    }
+}
+
+.bioTextEdit {
+    display: block;
+    width: 80%;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.bioSaveBtn {
+    display: block;
+    margin: 10px auto;
 }

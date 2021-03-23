@@ -89,7 +89,7 @@ function Navbar() {
             <div id="searchResults" className="card searchResults hidden">
                 <div className="card-body">
                     {filtered.map(filter => (
-                        <p id={filter._id}>{filter.first_name} {filter.last_name}</p>
+                        <p key={filter._id} id={filter._id}>{filter.first_name} {filter.last_name}</p>
                     ))}
                 </div>
             </div>
