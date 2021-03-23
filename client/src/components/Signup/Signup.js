@@ -30,6 +30,7 @@ function Signup() {
             await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value)
             API.saveUser({
                 username: usernameRef.current.value,
+                full_name: firstNameRef.current.value + " " + lastNameRef.current.value,
                 first_name: firstNameRef.current.value,
                 last_name: lastNameRef.current.value,
                 email: emailRef.current.value

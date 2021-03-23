@@ -12,6 +12,7 @@ function Navbar() {
     const { currentUser, logout } = useAuth()
     const [allUsers, setAllUsers] = useState([])
     const [search, setSearch] = useState("")
+    const [filtered, setFiltered] = useState([])
 
     useEffect(() => {
         getAllUsers()
@@ -41,6 +42,11 @@ function Navbar() {
     function handleInputChange(e) {
         setSearch(e.target.value)
         console.log(search)
+        if (search === "") {
+            setFiltered([])
+        } else {
+            setFiltered(allUsers.filter(all => all.full_name.toLowerCase().includes(search.toLowerCase()))) 
+        }
     }
 
     function searchUser(e) {
@@ -82,7 +88,9 @@ function Navbar() {
             </nav>
             <div id="searchResults" className="card searchResults hidden">
                 <div className="card-body">
-                    
+                    {filtered.map(filter => (
+                        <p id={filter._id}>{filter.first_name} {filter.last_name}</p>
+                    ))}
                 </div>
             </div>
         </div>
