@@ -25,6 +25,7 @@ function App() {
             <PrivateRoutes exact path="/adventure" component={Adventure} />
             <PrivateRoutes exact path="/recent" component={Recent} />
             <PrivateRoutes exact path="/profile" component={Profile} />
+            <PrivateRoutes exact path="/profile/:id" component={Profile} />
           </Switch>
         </AuthProvider>
       </Router>

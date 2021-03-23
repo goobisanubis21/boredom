@@ -51,7 +51,8 @@ function Navbar() {
 
     function searchUser(e) {
         e.preventDefault()
-
+        let searchId = allUsers.find(searched => search === searched.full_name)
+        history.push("/profile/" + searchId._id)
     }
 
     function showSearches() {
@@ -61,6 +62,12 @@ function Navbar() {
         } else {
             searchResults.classList.remove("hidden")
         }
+    }
+
+    function addToSearch (e) {
+        const clicked = e.target.id
+        const searchedValue = allUsers.find(user => user._id === clicked)
+        setSearch(searchedValue.full_name)
     }
 
     return (
@@ -89,7 +96,7 @@ function Navbar() {
             <div id="searchResults" className="card searchResults hidden">
                 <div className="card-body">
                     {filtered.map(filter => (
-                        <p key={filter._id} id={filter._id}>{filter.first_name} {filter.last_name}</p>
+                        <p className="searchResultNames" onClick={addToSearch} value={filter.first_name + " " + filter.last_name} key={filter._id} id={filter._id}>{filter.first_name} {filter.last_name}</p>
                     ))}
                 </div>
             </div>

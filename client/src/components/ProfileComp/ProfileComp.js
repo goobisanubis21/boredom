@@ -63,66 +63,72 @@ function ProfileComp() {
         }).then(window.location.reload())
     }
 
-    return (
-        <div>
+    if (window.location.pathname === "/profile") {
 
-            <div id="followerMod" className="hidden">
-                <div className="card followerModal">
-                    <div className="card-body">
-                        <p>Followers</p>
-                        {followers.map(follower => (
-                            <div className="followers" key={follower.users.id}>
-                                <p>{follower.users.first_name} {follower.users.last_name}</p>
-                                <button onClick={viewUser} id={follower.users.id} className="followerViewBtn">View</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            <div id="followingMod" className="hidden">
-                <div className="card followingModal">
-                    <div className="card-body">
-                        <p>Following</p>
-                        {following.map(followings => (
-                            <div className="following" key={followings.users.id}>
-                                <p>{followings.users.first_name} {followings.users.last_name}</p>
-                                <button onClick={viewUser} id={followings.users.id} className="followingViewBtn">View</button>
-                                <button onClick={unfollow} id={followings.users.id} className="unfollowingBtn">Unfollow</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {stateUser.map(user => (
-                <div className="userDiv" key={user.email}>
-                    <p className="usernameProfile">{user.username}</p>
-                    <div className="profileImgDiv">
-                        <img className="userProfilePic" src={user.image} alt="profileImg">
-                        </img>
-                    </div>
-                    <div className="followDiv">
-                        <p className="follower" onClick={followerView}>Followers: {followers.length}</p>
-                        <p className="following" onClick={followingView}>Following: {following.length}</p>
-                    </div>
-                    <div className="bioDiv">
-                        <p>BIO</p>
-                        <div className="card">
-                            <div className="card-body">
-                                <p>{user.bio}</p>
-                                <div id="bioEditId" className="bioEdit hidden">
-                                    <textarea ref={bioRef} className="bioTextEdit" placeholder="Bio"></textarea>
-                                    <button onClick={saveBio} className="bioSaveBtn">Save</button>
+        return (
+            <div>
+                <div id="followerMod" className="hidden">
+                    <div className="card followerModal">
+                        <div className="card-body">
+                            <p>Followers</p>
+                            {followers.map(follower => (
+                                <div className="followers" key={follower.users.id}>
+                                    <p>{follower.users.first_name} {follower.users.last_name}</p>
+                                    <button onClick={viewUser} id={follower.users.id} className="followerViewBtn">View</button>
                                 </div>
-                                <button onClick={editBio}>Edit</button>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>
-            ))}
-        </div>
-    )
+                <div id="followingMod" className="hidden">
+                    <div className="card followingModal">
+                        <div className="card-body">
+                            <p>Following</p>
+                            {following.map(followings => (
+                                <div className="following" key={followings.users.id}>
+                                    <p>{followings.users.first_name} {followings.users.last_name}</p>
+                                    <button onClick={viewUser} id={followings.users.id} className="followingViewBtn">View</button>
+                                    <button onClick={unfollow} id={followings.users.id} className="unfollowingBtn">Unfollow</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                {stateUser.map(user => (
+                    <div className="userDiv" key={user.email}>
+                        <p className="usernameProfile">{user.username}</p>
+                        <div className="profileImgDiv">
+                            <img className="userProfilePic" src={user.image} alt="profileImg">
+                            </img>
+                        </div>
+                        <div className="followDiv">
+                            <p className="follower" onClick={followerView}>Followers: {followers.length}</p>
+                            <p className="following" onClick={followingView}>Following: {following.length}</p>
+                        </div>
+                        <div className="bioDiv">
+                            <p>BIO</p>
+                            <div className="card">
+                                <div className="card-body">
+                                    <p>{user.bio}</p>
+                                    <div id="bioEditId" className="bioEdit hidden">
+                                        <textarea defaultValue={user.bio} ref={bioRef} className="bioTextEdit"></textarea>
+                                        <button onClick={saveBio} className="bioSaveBtn">Save</button>
+                                    </div>
+                                    <button onClick={editBio}>Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <p>hi</p>
+            </div>
+        )
+    }
 }
 
 export default ProfileComp
