@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import "./profileComp.css";
 import { useAuth } from "../../context/AuthContext";
 import API from "../../utils/API"
@@ -6,14 +7,41 @@ import API from "../../utils/API"
 function ProfileComp() {
 
     const { currentUser, logout } = useAuth()
+    const history = useHistory()
     const [stateUser, setStateUser] = useState([])
     const [followers, setFollowers] = useState([])
     const [following, setFollowing] = useState([])
+    const [allUsers, setAllUsers] = useState([])
+    const [currentUserPath, setCurrentUserPath] = useState([])
     const bioRef = useRef()
 
     useEffect(() => {
         findCurrentUser()
+        getAllUsers()
     }, [])
+
+    useEffect(() => {
+
+        let locationWindow = []
+        locationWindow.push(window.location.pathname.split("/"))
+        let currentId = locationWindow[0][2]
+        let clickedUserPath = allUsers.find(everyone => currentId === everyone._id)
+        if (clickedUserPath === undefined) {
+            return
+        } else {
+            setCurrentUserPath(clickedUserPath)
+        }
+    }, [window.location.pathname])
+
+    useEffect(() => {
+        history.push("/profile")
+    }, [window.location.reload])
+
+    function getAllUsers() {
+        API.getUser().then(res => {
+            setAllUsers(res.data)
+        })
+    }
 
     function findCurrentUser() {
         API.getUser().then(res => {
@@ -109,6 +137,7 @@ function ProfileComp() {
                             <p>BIO</p>
                             <div className="card">
                                 <div className="card-body">
+                                    <h4>{user.first_name} {user.last_name}</h4>
                                     <p>{user.bio}</p>
                                     <div id="bioEditId" className="bioEdit hidden">
                                         <textarea defaultValue={user.bio} ref={bioRef} className="bioTextEdit"></textarea>
@@ -125,7 +154,56 @@ function ProfileComp() {
     } else {
         return (
             <div>
-                <p>hi</p>
+                <div id="followerMod" className="hidden">
+                    <div className="card followerModal">
+                        <div className="card-body">
+                            <p>Followers</p>
+                            {followers.map(follower => (
+                                <div className="followers" key={follower.users.id}>
+                                    <p>{follower.users.first_name} {follower.users.last_name}</p>
+                                    <button onClick={viewUser} id={follower.users.id} className="followerViewBtn">View</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div id="followingMod" className="hidden">
+                    <div className="card followingModal">
+                        <div className="card-body">
+                            <p>Following</p>
+                            {following.map(followings => (
+                                <div className="following" key={followings.users.id}>
+                                    <p>{followings.users.first_name} {followings.users.last_name}</p>
+                                    <button onClick={viewUser} id={followings.users.id} className="followingViewBtn">View</button>
+                                    <button onClick={unfollow} id={followings.users.id} className="unfollowingBtn">Unfollow</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="userDiv">
+                    <p className="usernameProfile">{currentUserPath.username}</p>
+                    <button>Follow Me</button>
+                    <div className="profileImgDiv">
+                        <img className="userProfilePic" src={currentUserPath.image} alt="profileImg">
+                        </img>
+                    </div>
+                    <div className="followDiv">
+                        <p className="follower" onClick={followerView}>Followers: {followers.length}</p>
+                        <p className="following" onClick={followingView}>Following: {following.length}</p>
+                    </div>
+                    <div className="bioDiv">
+                        <p>BIO</p>
+                        <div className="card">
+                            <div className="card-body">
+                                <h4>{currentUserPath.first_name} {currentUserPath.last_name}</h4>
+                                <p>{currentUserPath.bio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                )
             </div>
         )
     }

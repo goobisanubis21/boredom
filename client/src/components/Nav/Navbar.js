@@ -49,12 +49,6 @@ function Navbar() {
         }
     }
 
-    function searchUser(e) {
-        e.preventDefault()
-        let searchId = allUsers.find(searched => search === searched.full_name)
-        history.push("/profile/" + searchId._id)
-    }
-
     function showSearches() {
         let searchResults = document.getElementById("searchResults")
         if (search === "") {
@@ -62,6 +56,12 @@ function Navbar() {
         } else {
             searchResults.classList.remove("hidden")
         }
+    }
+
+    function searchUser(e) {
+        e.preventDefault()
+        let searchId = allUsers.find(searched => search === searched.full_name)
+        history.push("/profile/" + searchId._id)
     }
 
     function addToSearch (e) {
