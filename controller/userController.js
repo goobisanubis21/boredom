@@ -1,4 +1,5 @@
 const db = require("../models");
+const { findOneAndUpdate } = require("../models/boredomuser");
 
 module.exports = {
 
@@ -21,5 +22,19 @@ module.exports = {
             .findOneAndUpdate(req.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => console.log(json(err)))
-    }
+    },
+
+    addNew: function (req, res) {
+        db.Boredomuser
+            .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .then(dbModel => res.json(dbModel))
+            .catch(err => console.log(json(err)))
+    },
+
+    getUser: function (req, res) {
+        db.Boredomuser
+            .findOne({ _id: req.params.id })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => console.log(err));
+    },
 }

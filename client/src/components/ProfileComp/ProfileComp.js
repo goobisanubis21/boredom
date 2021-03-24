@@ -15,6 +15,7 @@ function ProfileComp() {
     const [currentUserPath, setCurrentUserPath] = useState([])
     const bioRef = useRef()
 
+
     useEffect(() => {
         findCurrentUser()
         getAllUsers()
@@ -75,8 +76,8 @@ function ProfileComp() {
         // function to delete the following user from the user who is deleteing's db and must also delete the user who is deleteing from the following user's db
     }
 
-    function viewUser() {
-        // function to view user profile when clicked on in follower/following list
+    function viewUser(e) {
+        console.log(e.target.id)
     }
 
     function editBio() {
@@ -91,18 +92,32 @@ function ProfileComp() {
         }).then(window.location.reload())
     }
 
+    function followMe(e) {
+        let clicked = e.target.id
+        let followUser = []
+        let clickedFollow = allUsers.find(everyone => clicked === everyone._id)
+        followUser.push(clickedFollow)
+        console.log(followUser)
+        API.addFollower({
+            id: stateUser[0]._id,
+            followingId: followUser[0]._id,
+            first: followUser[0].first_name,
+            last: followUser[0].last_name
+        })
+    }
+
     if (window.location.pathname === "/profile") {
 
         return (
             <div>
-                <div id="followerMod" className="hidden">
+                {/* <div id="followerMod" className="hidden">
                     <div className="card followerModal">
                         <div className="card-body">
                             <p>Followers</p>
                             {followers.map(follower => (
-                                <div className="followers" key={follower.users.id}>
-                                    <p>{follower.users.first_name} {follower.users.last_name}</p>
-                                    <button onClick={viewUser} id={follower.users.id} className="followerViewBtn">View</button>
+                                <div className="followers" key={follower.id}>
+                                    <p>{follower.first_name} {follower.last_name}</p>
+                                    <button onClick={viewUser} id={follower.id} className="followerViewBtn">View</button>
                                 </div>
                             ))}
                         </div>
@@ -113,10 +128,10 @@ function ProfileComp() {
                         <div className="card-body">
                             <p>Following</p>
                             {following.map(followings => (
-                                <div className="following" key={followings.users.id}>
-                                    <p>{followings.users.first_name} {followings.users.last_name}</p>
-                                    <button onClick={viewUser} id={followings.users.id} className="followingViewBtn">View</button>
-                                    <button onClick={unfollow} id={followings.users.id} className="unfollowingBtn">Unfollow</button>
+                                <div className="following" key={followings.id}>
+                                    <p>{followings.first_name} {followings.last_name}</p>
+                                    <button onClick={viewUser} id={followings.id} className="followingViewBtn">View</button>
+                                    <button onClick={unfollow} id={followings.id} className="unfollowingBtn">Unfollow</button>
                                 </div>
                             ))}
                         </div>
@@ -159,9 +174,9 @@ function ProfileComp() {
                         <div className="card-body">
                             <p>Followers</p>
                             {followers.map(follower => (
-                                <div className="followers" key={follower.users.id}>
-                                    <p>{follower.users.first_name} {follower.users.last_name}</p>
-                                    <button onClick={viewUser} id={follower.users.id} className="followerViewBtn">View</button>
+                                <div className="followers" key={follower.id}>
+                                    <p>{follower.first_name} {follower.last_name}</p>
+                                    <button onClick={viewUser} id={follower.id} className="followerViewBtn">View</button>
                                 </div>
                             ))}
                         </div>
@@ -172,10 +187,10 @@ function ProfileComp() {
                         <div className="card-body">
                             <p>Following</p>
                             {following.map(followings => (
-                                <div className="following" key={followings.users.id}>
-                                    <p>{followings.users.first_name} {followings.users.last_name}</p>
-                                    <button onClick={viewUser} id={followings.users.id} className="followingViewBtn">View</button>
-                                    <button onClick={unfollow} id={followings.users.id} className="unfollowingBtn">Unfollow</button>
+                                <div className="following" key={followings.id}>
+                                    <p>{followings.first_name} {followings.last_name}</p>
+                                    <button onClick={viewUser} id={followings.id} className="followingViewBtn">View</button>
+                                    <button onClick={unfollow} id={followings.id} className="unfollowingBtn">Unfollow</button>
                                 </div>
                             ))}
                         </div>
@@ -184,7 +199,7 @@ function ProfileComp() {
 
                 <div className="userDiv">
                     <p className="usernameProfile">{currentUserPath.username}</p>
-                    <button>Follow Me</button>
+                    <button onClick={followMe} id={currentUserPath._id}>Follow Me</button>
                     <div className="profileImgDiv">
                         <img className="userProfilePic" src={currentUserPath.image} alt="profileImg">
                         </img>
@@ -203,7 +218,7 @@ function ProfileComp() {
                         </div>
                     </div>
                 </div>
-                )
+                ) */}
             </div>
         )
     }
