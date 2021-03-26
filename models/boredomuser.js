@@ -3,39 +3,49 @@ const Schema = mongoose.Schema;
 
 const boredomuserSchema = new Schema({
     username: { type: String },
-    full_name: {type: String},
+    full_name: { type: String },
     first_name: { type: String },
     last_name: { type: String },
     email: { type: String },
     image: { type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwgEJf3figiiLmSgtwKnEgEkRw1qUf2ke1Bg&usqp=CAU" },
     followers: {
+        type: Array,
+        users: {
             id: {
                 type: String,
-                
+                default: "1"
+    
             },
             first_name: {
                 type: String,
-                
+                default: "A"
+    
             },
             last_name: {
                 type: String,
-                
+                default: "P"
             }
+        } 
     },
 
     following: {
+        type: Array,
+        users: {
             id: {
                 type: String,
-                
+                default: "1"
+    
             },
             first_name: {
                 type: String,
-                
+                default: "A"
+    
             },
             last_name: {
                 type: String,
-                
+                default: "P"
             }
+        }
     },
     bio: { type: String, default: "No Bio" },
     date: { type: Date, default: Date.now }

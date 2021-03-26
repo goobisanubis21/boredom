@@ -19,16 +19,16 @@ module.exports = {
 
     update: function (req, res) {
         db.Boredomuser
-            .findOneAndUpdate(req.body)
+            .findByIdAndUpdate({_id: req.body.id}, {$set: {bio: req.body.bio}})
             .then(dbModel => res.json(dbModel))
             .catch(err => console.log(json(err)))
     },
 
     addNew: function (req, res) {
         db.Boredomuser
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .findByIdAndUpdate({ _id: req.params.id }, {$push: {following: req.body}})
             .then(dbModel => res.json(dbModel))
-            .catch(err => console.log(json(err)))
+            .catch(err => console.log(err));
     },
 
     getUser: function (req, res) {
