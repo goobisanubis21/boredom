@@ -10,4 +10,7 @@ router.route("/:id")
     .get(userController.getUser)
     .put(userController.addNew)
 
+router.route("/add/:id")
+    .put(userController.getNew)
+
 module.exports = router;

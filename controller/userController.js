@@ -37,4 +37,11 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => console.log(err));
     },
+
+    getNew: function (req, res) {
+        db.Boredomuser
+        .findByIdAndUpdate({ _id: req.params.id }, {$addToSet: {followers: req.body}})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => console.log(err));
+    }
 }

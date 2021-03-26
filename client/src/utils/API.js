@@ -16,5 +16,9 @@ export default {
 
     addFollower: function (id) {
         return axios.put("../api/user/" + id.userId, id.users)
+    },
+
+    getFollower: function (id) {
+        return axios.put("../api/user/add/" + id.userId, id.users)
     }
 };

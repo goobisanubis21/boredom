@@ -8,45 +8,8 @@ const boredomuserSchema = new Schema({
     last_name: { type: String },
     email: { type: String },
     image: { type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwgEJf3figiiLmSgtwKnEgEkRw1qUf2ke1Bg&usqp=CAU" },
-    followers: {
-        type: Array,
-        users: {
-            id: {
-                type: String,
-                default: "1"
-    
-            },
-            first_name: {
-                type: String,
-                default: "A"
-    
-            },
-            last_name: {
-                type: String,
-                default: "P"
-            }
-        } 
-    },
-
-    following: {
-        type: Array,
-        users: {
-            id: {
-                type: String,
-                default: "1"
-    
-            },
-            first_name: {
-                type: String,
-                default: "A"
-    
-            },
-            last_name: {
-                type: String,
-                default: "P"
-            }
-        }
-    },
+    followers: { type: Array },
+    following: { type: Array },
     bio: { type: String, default: "No Bio" },
     date: { type: Date, default: Date.now }
 });

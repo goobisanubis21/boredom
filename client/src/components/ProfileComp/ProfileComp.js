@@ -106,6 +106,17 @@ function ProfileComp() {
                 }
             }
         })
+        API.getFollower({
+            userId: followUser[0]._id,
+            users: {
+                users: {
+                    id: stateUser[0]._id,
+                    first_name: stateUser[0].first_name,
+                    last_name: stateUser[0].last_name
+
+                }
+            }
+        })
     }
 
     if (window.location.pathname === "/profile") {
