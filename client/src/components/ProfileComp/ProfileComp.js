@@ -14,7 +14,6 @@ function ProfileComp() {
     const [allUsers, setAllUsers] = useState([])
     const [currentUserPath, setCurrentUserPath] = useState([])
     const bioRef = useRef()
-    // let following1 = [];
 
 
     useEffect(() => {
@@ -49,41 +48,14 @@ function ProfileComp() {
         API.getUser().then(res => {
             let theUser = currentUser.email
             let user = [];
-            // let follower = [];
-            // let following = [];
             for (let i = 0; i < res.data.length - res.data.length + 1; i++) {
                 user.push(res.data.find(savedUser => savedUser.email === theUser))
-                // follower.push(res.data[i].followers)
-                // following.push(res.data[i].following)
                 setFollowers(res.data[i].followers)
                 setFollowing(res.data[i].following)
             }
             setStateUser(user)
-            // setFollowers(follower)
-            // setFollowing(following)
         })
     }
-
-    // function findFollowing() {
-    //     API.getUser().then(res => {
-    //         let theUser = currentUser.email
-    //         let user = [];
-    //         let follower = [];
-    //         let following1= []
-    //         for (let i = 0; i < res.data.length - res.data.length + 1; i++) {
-    //             user.push(res.data.find(savedUser => savedUser.email === theUser))
-    //             // follower.push(res.data[i].followers)
-    //             following1.push(res.data[i].following)
-    //         }
-    //         return following1
-    //         // console.log(following1.length)
-    //     })
-    // }
-
-    // useEffect(() => {
-    //     findFollowing()
-    //     console.log(findFollowing())
-    // }, [])
 
     function followerView() {
         let followerMod = document.getElementById("followerMod")
@@ -140,15 +112,17 @@ function ProfileComp() {
 
         return (
             <div>
-                {/* <div id="followerMod" className="hidden">
+                <div id="followerMod" className="hidden">
                     <div className="card followerModal">
                         <div className="card-body">
                             <p>Followers</p>
-                            {followers.map(follower => (
-                                <div className="followers" key={follower.id}>
-                                    <p>{follower.first_name} {follower.last_name}</p>
-                                    <button onClick={viewUser} id={follower.id} className="followerViewBtn">View</button>
-                                </div>
+                            {stateUser.map(user => (
+                                user.followers.map(followerss => (
+                                    <div className="followers" key={followerss.users.id}>
+                                        <p>{followerss.users.first_name} {followerss.users.last_name}</p>
+                                        <button onClick={viewUser} id={followerss.users.id} className="followerViewBtn">View</button>
+                                    </div>
+                                ))
                             ))}
                         </div>
                     </div>
@@ -157,49 +131,18 @@ function ProfileComp() {
                     <div className="card followingModal">
                         <div className="card-body">
                             <p>Following</p>
-                            {following.map(followings => (
-                                <div className="following" key={followings.id}>
-                                    <p>{followings.first_name} {followings.last_name}</p>
-                                    <button onClick={viewUser} id={followings.id} className="followingViewBtn">View</button>
-                                    <button onClick={unfollow} id={followings.id} className="unfollowingBtn">Unfollow</button>
-                                </div>
+                            {stateUser.map(followings => (
+                                followings.following.map(followingss => (
+                                    <div className="following" key={followingss.users.id}>
+                                        <p>{followingss.users.first_name} {followingss.users.last_name}</p>
+                                        <button onClick={viewUser} id={followingss.users.id} className="followingViewBtn">View</button>
+                                        <button onClick={unfollow} id={followingss.users.id} className="unfollowingBtn">Unfollow</button>
+                                    </div>
+                                ))
                             ))}
                         </div>
                     </div>
-                </div> */}
-
-
-                <div id="followerMod" className="hidden">
-                <div className="card followerModal">
-                    <div className="card-body">
-                        <p>Followers</p>
-                        {stateUser.map(user => (
-                            user.followers.map(followerss => (
-                                <div className="followers" key={followerss.users.id}>
-                                    <p>{followerss.users.first_name} {followerss.users.last_name}</p>
-                                    <button onClick={viewUser} id={followerss.users.id} className="followerViewBtn">View</button>
-                                </div>
-                            ))
-                        ))}
-                    </div>
                 </div>
-            </div>
-            <div id="followingMod" className="hidden">
-                <div className="card followingModal">
-                    <div className="card-body">
-                        <p>Following</p>
-                        {stateUser.map(followings => (
-                            followings.following.map(followingss => (
-                                <div className="following" key={followingss.users.id}>
-                                    <p>{followingss.users.first_name} {followingss.users.last_name}</p>
-                                    <button onClick={viewUser} id={followingss.users.id} className="followingViewBtn">View</button>
-                                    <button onClick={unfollow} id={followingss.users.id} className="unfollowingBtn">Unfollow</button>
-                                </div>
-                            ))
-                        ))}
-                    </div>
-                </div>
-            </div>
 
                 {stateUser.map(user => (
                     <div className="userDiv" key={user.email}>
@@ -209,8 +152,8 @@ function ProfileComp() {
                             </img>
                         </div>
                         <div className="followDiv">
-                            <p className="follower" onClick={followerView}>Followers: {followers.length}</p>
-                            <p className="following" onClick={followingView}>Following: {following.length}</p>
+                            <p className="follower" onClick={followerView}>Followers: {user.followers.length}</p>
+                            <p className="following" onClick={followingView}>Following: {user.following.length}</p>
                         </div>
                         <div className="bioDiv">
                             <p>BIO</p>
@@ -233,33 +176,39 @@ function ProfileComp() {
     } else {
         return (
             <div>
+
                 {/* <div id="followerMod" className="hidden">
-                <div className="card followerModal">
-                    <div className="card-body">
-                        <p>Followers</p>
-                        {stateUser.map(follower => (
-                            <div className="followers" key={follower.followers.users.id}>
-                                <p>{follower.followers.users.first_name} {follower.followers.users.last_name}</p>
-                                <button onClick={viewUser} id={follower.followers.users.id} className="followerViewBtn">View</button>
-                            </div>
-                        ))}
+                    <div className="card followerModal">
+                        <div className="card-body">
+                            <p>Followers</p>
+                            {stateUser.map(user => (
+                                user.followers.map(followerss => (
+                                    <div className="followers" key={followerss.users.id}>
+                                        <p>{followerss.users.first_name} {followerss.users.last_name}</p>
+                                        <button onClick={viewUser} id={followerss.users.id} className="followerViewBtn">View</button>
+                                    </div>
+                                ))
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="followingMod" className="hidden">
-                <div className="card followingModal">
-                    <div className="card-body">
-                        <p>Following</p>
-                        {stateUser.map(followings => (
-                            <div className="following" key={followings.following.users.id}>
-                                <p>{followings.following.users.first_name} {followings.following.users.last_name}</p>
-                                <button onClick={viewUser} id={followings.following.users.id} className="followingViewBtn">View</button>
-                                <button onClick={unfollow} id={followings.following.users.id} className="unfollowingBtn">Unfollow</button>
-                            </div>
-                        ))}
+                
+                <div id="followingMod" className="hidden">
+                    <div className="card followingModal">
+                        <div className="card-body">
+                            <p>Following</p>
+                            {stateUser.map(followings => (
+                                followings.following.map(followingss => (
+                                    <div className="following" key={followingss.users.id}>
+                                        <p>{followingss.users.first_name} {followingss.users.last_name}</p>
+                                        <button onClick={viewUser} id={followingss.users.id} className="followingViewBtn">View</button>
+                                        <button onClick={unfollow} id={followingss.users.id} className="unfollowingBtn">Unfollow</button>
+                                    </div>
+                                ))
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </div> */}
+                </div> */}
 
                 <div className="userDiv">
                     <p className="usernameProfile">{currentUserPath.username}</p>
@@ -268,10 +217,10 @@ function ProfileComp() {
                         <img className="userProfilePic" src={currentUserPath.image} alt="profileImg">
                         </img>
                     </div>
-                    <div className="followDiv">
+                    {/* <div className="followDiv">
                         <p className="follower" onClick={followerView}>Followers: {followers.length}</p>
                         <p className="following" onClick={followingView}>Following: {following.length}</p>
-                    </div>
+                    </div> */}
                     <div className="bioDiv">
                         <p>BIO</p>
                         <div className="card">
