@@ -122,3 +122,12 @@
     display: block;
     margin: 10px auto;
 }
+
+.photoInput {
+    width: 205px;
+}
+
+.photoSaveBtn {
+    border: 1px solid black;
+    border-radius: 2px;
+}

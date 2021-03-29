@@ -13,4 +13,10 @@ router.route("/:id")
 router.route("/add/:id")
     .put(userController.getNew)
 
+router.route("/photo/:id")
+    .put(userController.addPhoto)
+
+router.route("/remove/:id")
+    .put(userController.seeYa)
+
 module.exports = router;

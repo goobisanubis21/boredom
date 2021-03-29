@@ -14,6 +14,7 @@ function ProfileComp() {
     const [allUsers, setAllUsers] = useState([])
     const [currentUserPath, setCurrentUserPath] = useState([])
     const bioRef = useRef()
+    const photoRef = useRef()
 
 
     useEffect(() => {
@@ -68,12 +69,31 @@ function ProfileComp() {
         followingMod.classList.toggle("show")
     }
 
-    function unfollow() {
-        // function to delete the following user from the user who is deleteing's db and must also delete the user who is deleteing from the following user's db
+    function unfollow(e) {
+        let clicked = e.target.id
+        
+        API.getUser().then(res => {
+            let theUser = currentUser.email
+            let user = [];
+            for (let i = 0; i < res.data.length - res.data.length + 1; i++) {
+                user.push(res.data.find(savedUser => savedUser.email === theUser))
+            }
+            let followingUsers = user[0].following
+            let newUser = followingUsers.filter(removeFollow => (removeFollow.users.id !== clicked))
+            
+            API.removeFollow({
+                id: stateUser[0]._id,
+                user: newUser
+            })
+        })
+
     }
 
     function viewUser(e) {
         console.log(e.target.id)
+        let searchId = allUsers.find(searched => e.target.id === searched._id)
+        console.log(searchId)
+        history.push("/profile/" + searchId._id)
     }
 
     function editBio() {
@@ -119,6 +139,15 @@ function ProfileComp() {
         })
     }
 
+    function changePhoto(e) {
+        e.preventDefault()
+        console.log(photoRef.current.value)
+        API.uploadPhoto({
+            userId: stateUser[0]._id,
+            image: photoRef.current.value
+        })
+    }
+
     if (window.location.pathname === "/profile") {
 
         return (
@@ -158,6 +187,10 @@ function ProfileComp() {
                 {stateUser.map(user => (
                     <div className="userDiv" key={user.email}>
                         <p className="usernameProfile">{user.username}</p>
+                        <form onSubmit={changePhoto}>
+                            <input className="photoInput" ref={photoRef} type="file"></input>
+                            <button className="photoSaveBtn" type="submit">Save Photo</button>
+                        </form>
                         <div className="profileImgDiv">
                             <img className="userProfilePic" src={user.image} alt="profileImg">
                             </img>

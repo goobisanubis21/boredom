@@ -20,5 +20,17 @@ export default {
 
     getFollower: function (id) {
         return axios.put("../api/user/add/" + id.userId, id.users)
+    },
+
+    uploadPhoto: function (img) {
+        return axios.put("../api/user/photo/" + img.userId, img.image)
+    },
+
+    unfollowThem: function (goodbye) {
+        return axios.delete("../api/user/unfollow/" + goodbye.id, goodbye)
+    },
+
+    removeFollow: function (users) {
+        return axios.put ("../api/user/remove/" + users.id, users.user)
     }
 };

@@ -1,5 +1,4 @@
 const db = require("../models");
-const { findOneAndUpdate } = require("../models/boredomuser");
 
 module.exports = {
 
@@ -19,14 +18,14 @@ module.exports = {
 
     update: function (req, res) {
         db.Boredomuser
-            .findByIdAndUpdate({_id: req.body.id}, {$set: {bio: req.body.bio}})
+            .findByIdAndUpdate({ _id: req.body.id }, { $set: { bio: req.body.bio } })
             .then(dbModel => res.json(dbModel))
             .catch(err => console.log(json(err)))
     },
 
     addNew: function (req, res) {
         db.Boredomuser
-            .findByIdAndUpdate({ _id: req.params.id }, {$addToSet: {following: req.body}})
+            .findByIdAndUpdate({ _id: req.params.id }, { $addToSet: { following: req.body } })
             .then(dbModel => res.json(dbModel))
             .catch(err => console.log(err));
     },
@@ -40,8 +39,23 @@ module.exports = {
 
     getNew: function (req, res) {
         db.Boredomuser
-        .findByIdAndUpdate({ _id: req.params.id }, {$addToSet: {followers: req.body}})
-        .then(dbModel => res.json(dbModel))
-        .catch(err => console.log(err));
+            .findByIdAndUpdate({ _id: req.params.id }, { $addToSet: { followers: req.body } })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => console.log(err));
+    },
+
+    addPhoto: function (req, res) {
+        db.Boredomuser
+        console.log(req.body)
+        // .findByIdAndUpdate({ _id: req.params.id }, { $set: { image: req.body } })
+        // .then(dbModel => res.json(dbModel))
+        // .catch(err => console.log(err))
+    },
+
+    seeYa: function (req, res) {
+        db.Boredomuser
+            .findByIdAndUpdate({ _id: req.params.id }, { $set: { following: req.body } })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => console.log(err))
     }
 }
