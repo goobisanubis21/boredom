@@ -32,5 +32,9 @@ export default {
 
     removeFollow: function (users) {
         return axios.put ("../api/user/remove/" + users.id, users.user)
+    },
+    
+    removeFollower: function(user) {
+        return axios.put("../api/user/removefollower/" + user.id, user.user)
     }
 };

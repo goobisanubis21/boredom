@@ -57,5 +57,14 @@ module.exports = {
             .findByIdAndUpdate({ _id: req.params.id }, { $set: { following: req.body } })
             .then(dbModel => res.json(dbModel))
             .catch(err => console.log(err))
+    },
+
+    seeYaFollower: function (req, res) {
+        db.Boredomuser
+        // console.log(req.params.id)
+        // console.log(req.body)
+        .findByIdAndUpdate({ _id: req.params.id }, { $set: { followers: req.body } })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => console.log(err))
     }
 }

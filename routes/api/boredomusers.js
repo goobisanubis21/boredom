@@ -19,4 +19,7 @@ router.route("/photo/:id")
 router.route("/remove/:id")
     .put(userController.seeYa)
 
+router.route("/removefollower/:id")
+    .put(userController.seeYaFollower)
+
 module.exports = router;

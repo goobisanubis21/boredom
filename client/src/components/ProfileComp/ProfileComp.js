@@ -71,7 +71,7 @@ function ProfileComp() {
 
     function unfollow(e) {
         let clicked = e.target.id
-        
+
         API.getUser().then(res => {
             let theUser = currentUser.email
             let user = [];
@@ -80,11 +80,23 @@ function ProfileComp() {
             }
             let followingUsers = user[0].following
             let newUser = followingUsers.filter(removeFollow => (removeFollow.users.id !== clicked))
-            
+
             API.removeFollow({
                 id: stateUser[0]._id,
                 user: newUser
             })
+
+        })
+
+        let theFollower = allUsers.find(theUser => clicked === theUser._id)
+        let followerUsers = theFollower.followers
+        let filteredFollowers = followerUsers.filter(f => stateUser[0]._id !== f.users.id)
+        console.log(filteredFollowers)
+        console.log(theFollower._id)
+
+        API.removeFollower({
+            id: theFollower._id,
+            user: filteredFollowers
         })
 
     }
