@@ -22,19 +22,15 @@ export default {
         return axios.put("../api/user/add/" + id.userId, id.users)
     },
 
-    uploadPhoto: function (img) {
-        return axios.put("../api/user/photo/" + img.userId, img.image)
-    },
-
     unfollowThem: function (goodbye) {
         return axios.delete("../api/user/unfollow/" + goodbye.id, goodbye)
     },
 
     removeFollow: function (users) {
-        return axios.put ("../api/user/remove/" + users.id, users.user)
+        return axios.put("../api/user/remove/" + users.id, users.user)
     },
-    
-    removeFollower: function(user) {
+
+    removeFollower: function (user) {
         return axios.put("../api/user/removefollower/" + user.id, user.user)
     }
 };

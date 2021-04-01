@@ -44,14 +44,6 @@ module.exports = {
             .catch(err => console.log(err));
     },
 
-    addPhoto: function (req, res) {
-        db.Boredomuser
-        console.log(req.body)
-        // .findByIdAndUpdate({ _id: req.params.id }, { $set: { image: req.body } })
-        // .then(dbModel => res.json(dbModel))
-        // .catch(err => console.log(err))
-    },
-
     seeYa: function (req, res) {
         db.Boredomuser
             .findByIdAndUpdate({ _id: req.params.id }, { $set: { following: req.body } })
@@ -61,10 +53,8 @@ module.exports = {
 
     seeYaFollower: function (req, res) {
         db.Boredomuser
-        // console.log(req.params.id)
-        // console.log(req.body)
-        .findByIdAndUpdate({ _id: req.params.id }, { $set: { followers: req.body } })
-        .then(dbModel => res.json(dbModel))
-        .catch(err => console.log(err))
+            .findByIdAndUpdate({ _id: req.params.id }, { $set: { followers: req.body } })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => console.log(err))
     }
 }

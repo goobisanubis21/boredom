@@ -151,15 +151,6 @@ function ProfileComp() {
         })
     }
 
-    function changePhoto(e) {
-        e.preventDefault()
-        console.log(photoRef.current.value)
-        API.uploadPhoto({
-            userId: stateUser[0]._id,
-            image: photoRef.current.value
-        })
-    }
-
     if (window.location.pathname === "/profile") {
 
         return (
@@ -171,7 +162,7 @@ function ProfileComp() {
                             {stateUser.map(user => (
                                 user.followers.map(followerss => (
                                     <div className="followers" key={followerss.users.id}>
-                                        <p>{followerss.users.first_name} {followerss.users.last_name}</p>
+                                        <p className>{followerss.users.first_name} {followerss.users.last_name}</p>
                                         <button onClick={viewUser} id={followerss.users.id} className="followerViewBtn">View</button>
                                     </div>
                                 ))
@@ -186,7 +177,7 @@ function ProfileComp() {
                             {stateUser.map(followings => (
                                 followings.following.map(followingss => (
                                     <div className="following" key={followingss.users.id}>
-                                        <p>{followingss.users.first_name} {followingss.users.last_name}</p>
+                                        <p className>{followingss.users.first_name} {followingss.users.last_name}</p>
                                         <button onClick={viewUser} id={followingss.users.id} className="followingViewBtn">View</button>
                                         <button onClick={unfollow} id={followingss.users.id} className="unfollowingBtn">Unfollow</button>
                                     </div>
@@ -199,14 +190,15 @@ function ProfileComp() {
                 {stateUser.map(user => (
                     <div className="userDiv" key={user.email}>
                         <p className="usernameProfile">{user.username}</p>
-                        <form onSubmit={changePhoto}>
-                            <input className="photoInput" ref={photoRef} type="file"></input>
-                            <button className="photoSaveBtn" type="submit">Save Photo</button>
-                        </form>
                         <div className="profileImgDiv">
                             <img className="userProfilePic" src={user.image} alt="profileImg">
                             </img>
                         </div>
+                        {/* <form onSubmit={changePhoto}>
+                            <input className="photoInput" ref={photoRef} type="file" />
+                            <button className="photoSaveBtn" type="submit">Save Photo</button>
+                        </form> */}
+
                         <div className="followDiv">
                             <p className="follower" onClick={followerView}>Followers: {user.followers.length}</p>
                             <p className="following" onClick={followingView}>Following: {user.following.length}</p>
@@ -232,51 +224,14 @@ function ProfileComp() {
     } else {
         return (
             <div>
-
-                {/* <div id="followerMod" className="hidden">
-                    <div className="card followerModal">
-                        <div className="card-body">
-                            <p>Followers</p>
-                            {stateUser.map(user => (
-                                user.followers.map(followerss => (
-                                    <div className="followers" key={followerss.users.id}>
-                                        <p>{followerss.users.first_name} {followerss.users.last_name}</p>
-                                        <button onClick={viewUser} id={followerss.users.id} className="followerViewBtn">View</button>
-                                    </div>
-                                ))
-                            ))}
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="followingMod" className="hidden">
-                    <div className="card followingModal">
-                        <div className="card-body">
-                            <p>Following</p>
-                            {stateUser.map(followings => (
-                                followings.following.map(followingss => (
-                                    <div className="following" key={followingss.users.id}>
-                                        <p>{followingss.users.first_name} {followingss.users.last_name}</p>
-                                        <button onClick={viewUser} id={followingss.users.id} className="followingViewBtn">View</button>
-                                        <button onClick={unfollow} id={followingss.users.id} className="unfollowingBtn">Unfollow</button>
-                                    </div>
-                                ))
-                            ))}
-                        </div>
-                    </div>
-                </div> */}
-
                 <div className="userDiv">
                     <p className="usernameProfile">{currentUserPath.username}</p>
                     <button onClick={followMe} id={currentUserPath._id}>Follow Me</button>
+                    {/* <button onClick={unfollow} id={currentUserPath._id}>Unfollow Me</button> */}
                     <div className="profileImgDiv">
                         <img className="userProfilePic" src={currentUserPath.image} alt="profileImg">
                         </img>
                     </div>
-                    {/* <div className="followDiv">
-                        <p className="follower" onClick={followerView}>Followers: {followers.length}</p>
-                        <p className="following" onClick={followingView}>Following: {following.length}</p>
-                    </div> */}
                     <div className="bioDiv">
                         <p>BIO</p>
                         <div className="card">
@@ -287,7 +242,7 @@ function ProfileComp() {
                         </div>
                     </div>
                 </div>
-                )
+                
             </div>
         )
     }
