@@ -19,4 +19,7 @@ router.route("/remove/:id")
 router.route("/removefollower/:id")
     .put(userController.seeYaFollower)
 
+router.route("/updateImage/:id")
+    .put(userController.addProfilepic)
+
 module.exports = router;

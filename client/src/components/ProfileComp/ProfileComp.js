@@ -14,7 +14,6 @@ function ProfileComp() {
     const [allUsers, setAllUsers] = useState([])
     const [currentUserPath, setCurrentUserPath] = useState([])
     const bioRef = useRef()
-    const photoRef = useRef()
 
 
     useEffect(() => {
@@ -151,6 +150,39 @@ function ProfileComp() {
         })
     }
 
+
+    const [file, setFile] = useState("");
+    const [filePath, setFilePath] = useState("");
+
+    function handleImageChange(e) {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            setFile(file)
+            setFilePath(reader.result)
+            console.log(file)
+            console.log(file.size)
+            console.log(reader.result)
+            API.saveImage(reader.result).then(e => {
+                console.log(e)
+                let data = {
+                    img: e.config,
+                    imgId: ""
+                }
+                API.updateUserImage({
+                    id: stateUser[0]._id,
+                    data
+                })
+            })
+
+        }
+
+        reader.readAsDataURL(file)
+    }
+
     if (window.location.pathname === "/profile") {
 
         return (
@@ -191,14 +223,11 @@ function ProfileComp() {
                     <div className="userDiv" key={user.email}>
                         <p className="usernameProfile">{user.username}</p>
                         <div className="profileImgDiv">
-                            <img className="userProfilePic" src={user.image} alt="profileImg">
-                            </img>
+                            {/* <img className="userProfilePic" src={user.image} alt="profileImg">
+                            </img> */}
+                            <img className="userProfilePic" id="profilePic" src={user.image} alt="profilepic"></img>
+                            <input type="file" id="img" name="img" accept="image/*" onChange={(e) => handleImageChange(e)}></input>
                         </div>
-                        {/* <form onSubmit={changePhoto}>
-                            <input className="photoInput" ref={photoRef} type="file" />
-                            <button className="photoSaveBtn" type="submit">Save Photo</button>
-                        </form> */}
-
                         <div className="followDiv">
                             <p className="follower" onClick={followerView}>Followers: {user.followers.length}</p>
                             <p className="following" onClick={followingView}>Following: {user.following.length}</p>
@@ -242,7 +271,7 @@ function ProfileComp() {
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         )
     }

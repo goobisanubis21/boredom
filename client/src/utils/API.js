@@ -32,5 +32,27 @@ export default {
 
     removeFollower: function (user) {
         return axios.put("../api/user/removefollower/" + user.id, user.user)
+    },
+
+    saveImage: function(image,imageId) {
+        let data ={}
+        if(imageId === undefined) {
+            data = {
+                img: image
+            }
+        }
+        else {
+            data = {
+                img: image,
+                imgId: imageId
+            }
+        }
+
+        console.log(data)
+
+        return axios.post('../api/cloudinary/', data)
+    },
+    updateUserImage: function(id) {
+        axios.put("../api/user/updateImage/" + id.id, id.data)
     }
 };

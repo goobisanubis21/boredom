@@ -12,6 +12,9 @@
 .userProfilePic {
     border-radius: 50%;
     margin-bottom: 30px;
+    width: 300px;
+    display: block;
+    margin: 30px auto;
 }
 
 .bioDiv {

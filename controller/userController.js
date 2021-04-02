@@ -56,5 +56,13 @@ module.exports = {
             .findByIdAndUpdate({ _id: req.params.id }, { $set: { followers: req.body } })
             .then(dbModel => res.json(dbModel))
             .catch(err => console.log(err))
+    },
+
+    addProfilepic: function(req, res) {
+        console.log(req.body.img)
+        console.log(req.paras.id)
+        // db.findOneAndUpdate({ _id: req.params.id }, {$set: {image: req.body}})
+        //     .then(dbModel => res.json(dbModel))
+        //     .catch(err => res.status(422).json(err));
     }
 }
