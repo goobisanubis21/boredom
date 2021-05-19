@@ -58,10 +58,11 @@ module.exports = {
             .catch(err => console.log(err))
     },
 
-    addProfilepic: function(req, res) {
-        console.log(req.body.img)
-        console.log(req.paras.id)
-        // db.findOneAndUpdate({ _id: req.params.id }, {$set: {image: req.body}})
+    addProfilepic: function (req, res) {
+        console.log(req.img)
+        // console.log(req.params.id)
+        // db.Boredomuser
+        //     .findByIdAndUpdate({ _id: req.params.id }, { $set: { image: req.body.img.data } })
         //     .then(dbModel => res.json(dbModel))
         //     .catch(err => res.status(422).json(err));
     }

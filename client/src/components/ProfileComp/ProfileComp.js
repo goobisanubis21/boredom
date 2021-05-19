@@ -170,7 +170,6 @@ function ProfileComp() {
                 console.log(e)
                 let data = {
                     img: e.config,
-                    imgId: ""
                 }
                 API.updateUserImage({
                     id: stateUser[0]._id,
